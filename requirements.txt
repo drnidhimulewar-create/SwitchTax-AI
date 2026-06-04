@@ -1,0 +1,6 @@
+streamlit
+pdfplumber
+fpdf2
+plotly
+pandas
+anthropic
