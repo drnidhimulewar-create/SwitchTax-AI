@@ -19,6 +19,7 @@ def extract_text_from_pdf(pdf_file) -> str:
 def layer_1_regex_extract(text: str) -> dict:
     """Layer 1: Fast Regex-based extraction."""
     data = {
+        "employee_name": None,
         "pan": None,
         "old_gross": None,
         "old_tds": None,
@@ -31,6 +32,11 @@ def layer_1_regex_extract(text: str) -> dict:
         "old_employer_tan": None
     }
     
+    # 0. Employee Name (Simple attempt)
+    name_match = re.search(r'(?:Name|Employee Name)\s*[:\-]?\s*([A-Za-z\s]+)(?:\n|$)', text, re.IGNORECASE)
+    if name_match:
+        data["employee_name"] = name_match.group(1).strip()
+        
     # 1. PAN (10 chars: 5 letters, 4 numbers, 1 letter)
     pan_match = re.search(r'\b[A-Z]{5}[0-9]{4}[A-Z]{1}\b', text, re.IGNORECASE)
     if pan_match:
