@@ -108,6 +108,7 @@ if st.session_state.parsed_data:
     with st.expander("📝 Layer 3: Review & Edit Extracted Data", expanded=True):
         col1, col2, col3 = st.columns(3)
         with col1:
+            # Employee name reads directly from parsed_data
             emp_name = st.text_input("Employee Name", value=st.session_state.parsed_data.get('employee_name') or "")
             pan = st.text_input("PAN", value=st.session_state.parsed_data.get('pan') or "")
         with col2:

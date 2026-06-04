@@ -32,8 +32,8 @@ def layer_1_regex_extract(text: str) -> dict:
         "old_employer_tan": None
     }
     
-    # 0. Employee Name (Simple attempt)
-    name_match = re.search(r'(?:Name|Employee Name)\s*[:\-]?\s*([A-Za-z\s]+)(?:\n|$)', text, re.IGNORECASE)
+    # 0. Employee Name (Broader attempt)
+    name_match = re.search(r'(?:Name\s+of\s+Employee|Employee\s+Name|Name)\s*[:\-]?\s*([A-Za-z\s\.]+)(?:\n|$)', text, re.IGNORECASE)
     if name_match:
         data["employee_name"] = name_match.group(1).strip()
         
