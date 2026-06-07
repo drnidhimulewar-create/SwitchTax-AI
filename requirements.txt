@@ -3,4 +3,4 @@ pdfplumber
 fpdf2
 plotly
 pandas
-anthropic
+google-genai
