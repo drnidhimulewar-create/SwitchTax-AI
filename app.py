@@ -1,3 +1,4 @@
+from google import genai
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -60,7 +61,7 @@ with st.sidebar:
     
     use_mock = st.toggle("Load Mock Dataset (Demo)")
     
-    anthropic_key = st.text_input("Anthropic API Key (Optional Layer 2)", type="password", help="Leave blank to skip LLM extraction.")
+    gemini_key = st.text_input("Gemini API Key (Optional Layer 2)", type="password", help="Leave blank to skip LLM extraction.")
     
     old_pdf = st.file_uploader("Old Employer F&F Payslip", type=["pdf"])
     new_pdf = st.file_uploader("New Employer Offer Letter", type=["pdf"])
@@ -84,7 +85,7 @@ with st.sidebar:
         if st.button("Parse Documents"):
             if old_pdf is not None:
                 with st.spinner("Extracting data..."):
-                    extracted = parse_document(old_pdf, api_key=anthropic_key if anthropic_key else None)
+                    extracted = parse_document(old_pdf, api_key=gemini_key if gemini_key else None)
                     # Quick merge logic, assume new_pdf parsing isn't strictly implemented for all fields but we do our best
                     st.session_state.parsed_data = extracted
                     st.success("Data Extracted!")

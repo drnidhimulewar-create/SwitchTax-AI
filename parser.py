@@ -1,7 +1,7 @@
 import re
 import pdfplumber
 import json
-from anthropic import Anthropic
+from google import genai
 
 def extract_text_from_pdf(pdf_file) -> str:
     """Extract all text from a PDF file."""
@@ -94,16 +94,16 @@ def layer_2_llm_extract(text: str, current_data: dict, api_key: str) -> dict:
     """
     
     try:
-        client = Anthropic(api_key=api_key)
-        message = client.messages.create(
-            model="claude-3-haiku-20240307",
+        client = genai.Client(api_key=api_key)
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
             max_tokens=1000,
             temperature=0,
             messages=[
                 {"role": "user", "content": prompt}
             ]
         )
-        response_text = message.content[0].text.strip()
+        return response.text 
         # Clean up if the model includes markdown
         if response_text.startswith("```json"):
             response_text = response_text[7:-3]
